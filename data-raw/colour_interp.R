@@ -20,12 +20,13 @@ characters_fr <-
   unlist() %>%
   table() %>%  
   as.data.frame() %>%  
-  filter("." != "") %>%  
-  mutate(scaled = min_max(Freq)) %>%  
-  mutate(frequencies =Freq/sum(Freq)) %>%
-  arrange(desc(frequencies)) %>%
   rename(letter = ".",
-         total = Freq)
+         total = Freq) %>%  
+  filter(letter != " ") %>%  
+  filter(letter != "") %>%  
+  mutate(scaled = min_max(total)) %>%  
+  mutate(frequencies =total/sum(total)) %>%
+  arrange(desc(frequencies)) 
 
 ramp <- colour_ramp(c("light green", "red"))
 
@@ -45,3 +46,78 @@ afnor_azerty2 %>%
 
 
 #data("afnor_bepo")
+
+german <- readLines("data-raw/german_text.txt")
+
+characters_de <-
+  german %>%
+  map(~strsplit(., split = "")) %>%
+  unlist() %>%
+  map(~strsplit(., split = "")) %>%
+  unlist() %>%
+  tolower() %>%
+                                        #str_extract_all(pattern = "[:alpha:]") %>%
+  unlist() %>%
+  table() %>%  
+  as.data.frame() %>%  
+  rename(letter = ".",
+         total = Freq) %>%  
+  filter(letter != " ") %>%  
+  filter(letter != "") %>%  
+  mutate(scaled = min_max(total)) %>%  
+  mutate(frequencies =total/sum(total)) %>%
+  arrange(desc(frequencies))
+
+ramp <- colour_ramp(c("light green", "red"))
+
+
+characters_de$fill <- ramp(characters_de$scaled)
+
+afnor_bepo2 %>%
+  full_join(characters_de, by = c("key" = "letter")) %>%
+  mutate(fill = coalesce(fill.y, fill.x)) %>% 
+  ggkeyboard2(keyboard = ., layout = "iso")
+
+
+afnor_azerty2 %>%
+  full_join(characters_de, by = c("key" = "letter")) %>%
+  mutate(fill = coalesce(fill.y, fill.x)) %>% 
+  ggkeyboard2(keyboard = ., layout = "iso")
+
+
+lux <- readLines("data-raw/lb_text.txt")
+
+characters_lb <-
+  lux %>%
+  map(~strsplit(., split = "")) %>%
+  unlist() %>%
+  map(~strsplit(., split = "")) %>%
+  unlist() %>%
+  tolower() %>%
+                                        #str_extract_all(pattern = "[:alpha:]") %>%
+  unlist() %>%
+  table() %>%  
+  as.data.frame() %>%  
+  rename(letter = ".",
+         total = Freq) %>%  
+  filter(letter != " ") %>%  
+  filter(letter != "") %>%  
+  mutate(scaled = min_max(total)) %>%  
+  mutate(frequencies =total/sum(total)) %>%
+  arrange(desc(frequencies))
+
+ramp <- colour_ramp(c("light green", "red"))
+
+
+characters_lb$fill <- ramp(characters_lb$scaled)
+
+afnor_bepo2 %>%
+  full_join(characters_lb, by = c("key" = "letter")) %>%
+  mutate(fill = coalesce(fill.y, fill.x)) %>% 
+  ggkeyboard2(keyboard = ., layout = "iso")
+
+
+afnor_azerty2 %>%
+  full_join(characters_lb, by = c("key" = "letter")) %>%
+  mutate(fill = coalesce(fill.y, fill.x)) %>% 
+  ggkeyboard2(keyboard = ., layout = "iso")

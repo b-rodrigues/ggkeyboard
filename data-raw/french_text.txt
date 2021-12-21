@@ -1,4 +1,4 @@
-french <- "Au commencement, Dieu créa les cieux et la terre.
+Au commencement, Dieu créa les cieux et la terre.
 La terre était informe et vide: il y avait des ténèbres à la surface de l'abîme, et l'esprit de Dieu se mouvait au-dessus des eaux.
 Dieu dit: Que la lumière soit! Et la lumière fut.
 Dieu vit que la lumière était bonne; et Dieu sépara la lumière d'avec les ténèbres.
@@ -53,4 +53,4 @@ De nombreux viols, massacres et crimes de guerre y ont été perpétrés entre 1
 
 En 2002, le Nyiragongo entra en éruption, et une coulée de lave atteignit le centre de la ville. La lave n'a pas atteint le lac Kivu fort heureusement, en effet ce lac est un lac méromictique et un changement brutal de chaleur aurait des conséquences graves : Éruption limnique.
 
-Débordant de populations fuyant les violences, Goma compte en 2012 plus de 400 000 habitants. Ceux qui ne peuvent pas trouver d'abri remplissent les camps de réfugiés, où l'ONU et les ONG se débattent pour leur fournir nourriture, eau et combustible."
+Débordant de populations fuyant les violences, Goma compte en 2012 plus de 400 000 habitants. Ceux qui ne peuvent pas trouver d'abri remplissent les camps de réfugiés, où l'ONU et les ONG se débattent pour leur fournir nourriture, eau et combustible.

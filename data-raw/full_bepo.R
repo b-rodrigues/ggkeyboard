@@ -73,6 +73,33 @@ afnor_bepo <- final_bepo %>%
   full_join(b) %>%
   mutate(size = ifelse(size == 5.25, 3, size))
 
+afnor_bepo <- afnor_bepo %>%
+  mutate(key = str_replace(key, "0024", "#"),
+         key = str_replace(key, "0022", "1"),
+         key = str_replace(key, "00ab", "2"),
+         key = str_replace(key, "00bb", "3"),
+         key = str_replace(key, "0028", "4"),
+         key = str_replace(key, "0029", "5"),
+         key = str_replace(key, "0040", "6"),
+         key = str_replace(key, "002b", "7"),
+         key = str_replace(key, "002d", "8"),
+         key = str_replace(key, "002f", "9"),
+         key = str_replace(key, "002a", "0"),
+         key = str_replace(key, "003d", "°"),
+         key = str_replace(key, "0025", "`"),
+         key = str_replace(key, "00e9", "é"),
+         key = str_replace(key, "00e8", "è"),
+         key = str_replace(key, "005e", "!"),
+         key = str_replace(key, "002c", ","),
+         key = str_replace(key, "00e7", "ç"),
+         key = str_replace(key, "00ea", "ê"),
+         key = str_replace(key, "00e0", "à"),
+         key = str_replace(key, "\\.", "Numpad \\."),
+         key = str_replace(key, "002e", "."),
+         key = str_replace(key, "0027", "'"))
+
+# rajouter lignes pour ; et ? et les symboles sous les chiffres
+
 usethis::use_data(afnor_bepo, overwrite = TRUE)
 
 ggkeyboard2(keyboard = afnor_bepo, layout = "iso")

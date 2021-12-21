@@ -20,21 +20,28 @@ characters_fr <-
   unlist() %>%
   table() %>%  
   as.data.frame() %>%  
+  filter("." != "") %>%  
   mutate(scaled = min_max(Freq)) %>%  
   mutate(frequencies =Freq/sum(Freq)) %>%
   arrange(desc(frequencies)) %>%
   rename(letter = ".",
          total = Freq)
 
-ramp <- colour_ramp(c("red", "green"))
+ramp <- colour_ramp(c("light green", "red"))
 
 
 characters_fr$fill <- ramp(characters_fr$scaled)
 
-afnor_bepo %>%
+afnor_bepo2 %>%
   full_join(characters_fr, by = c("key" = "letter")) %>%
-  mutate(fill = coalesce(fill.y, fill.x)) %>% View
+  mutate(fill = coalesce(fill.y, fill.x)) %>% 
   ggkeyboard2(keyboard = ., layout = "iso")
-  
 
-data("afnor_bepo")
+
+afnor_azerty2 %>%
+  full_join(characters_fr, by = c("key" = "letter")) %>%
+  mutate(fill = coalesce(fill.y, fill.x)) %>% 
+  ggkeyboard2(keyboard = ., layout = "iso")
+
+
+#data("afnor_bepo")

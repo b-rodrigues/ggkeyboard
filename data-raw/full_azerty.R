@@ -117,7 +117,40 @@ afnor_azerty <- final_azerty %>%
   full_join(b) %>%
   mutate(size = ifelse(size == 5.25, 3, size))
 
+afnor_azerty2 <- afnor_azerty  %>%  
+  mutate(key = str_replace(key, "00e0", "à"),
+         key = str_replace(key, "00e9", "é"),
+         key = str_replace(key, "00e8", "è"),
+         key = str_replace(key, "00ea", "ê"),
+         key = str_replace(key, "0028", "("),
+         key = str_replace(key, "0029", ")"),
+         key = str_replace(key, "2018", "‘"),
+         key = str_replace(key, "2019", "’"),
+         key = str_replace(key, "00ab", "«"),
+         key = str_replace(key, "00bb", "»"),
+         key = str_replace(key, "0027", "'"),
+         key = str_replace(key, "005e", "^"),
+         #key = str_replace(key, "003d", "°"),
+         key = str_replace(key, "002d", "-"),
+         #key = str_replace(key, "0025", "`"),
+         key = str_replace(key, "002b", "+"),
+         key = str_replace(key, "002f", "/"),
+         key = str_replace(key, "\\*", "Numpad \\*"),
+         key = str_replace(key, "002a", "\\*"),
+         #key = str_replace(key, "005e", "!"),
+         key = str_replace(key, "003c", "<"),
+         key = str_replace(key, "002c", ","),
+         key = str_replace(key, "003a", ":"),
+         key = str_replace(key, "003b", ";"),
+         key = str_replace(key, "0040", "@"),
+         key = str_replace(key, "\\.", "Numpad \\."),
+         key = str_replace(key, "-", "Numpad -"),
+         key = str_replace(key, "/", "Numpad /"),
+         key = str_replace(key, "002e", "."))
+
+
 usethis::use_data(afnor_azerty, overwrite = TRUE)
+usethis::use_data(afnor_azerty2, overwrite = TRUE)
 
 ggkeyboard2(keyboard = afnor_azerty, layout = "iso")
 

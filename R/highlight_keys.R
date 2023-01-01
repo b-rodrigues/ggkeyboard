@@ -27,14 +27,44 @@ highlight_keys <- function(ggkeyboard, keys, colour = "yellow", fill = NA, size 
 
   ggkeyboard +
     ggplot2::geom_rect(
-      data = key_data,
-      ggplot2::aes(
-        xmin = x_start, xmax = x_end,
-        ymin = y_start, ymax = y_end
-      ),
-      colour = colour,
-      fill = fill,
-      size = size,
-      ...
-    )
+               data = key_data,
+               ggplot2::aes(
+                          xmin = x_start, xmax = x_end,
+                          ymin = y_start, ymax = y_end
+                        ),
+               colour = colour,
+               fill = fill,
+               size = size,
+               ...
+             )
+}
+
+#' Keyboard Measurements
+#'
+#' Measurement options for \code{\link{ggkeyboard}}.
+#'
+#' There are the following options:
+#' * key_height: Height of keys.
+#' * key_width: Base width of keys.
+#' * height_gap: Height gap between rows of keys.
+#' * width_gap: Width gap between keys in the same row.
+#' * segment_size: Size of segments used to draw arrows.
+#' * arrow_size; Size of arrow head.
+#'
+#' @param name Measurement options name.
+#'
+#' @export
+keyboard_measurements <- function(name = "default") {
+  name <- match.arg(name)
+
+  switch(name,
+         default = c(
+           key_height = 15 / 15.5,
+           key_width = 1,
+           height_gap = 2 / 15.5,
+           width_gap = 2 / 15.5,
+           segment_size = 0.25,
+           arrow_size = 0.03
+         )
+         )
 }

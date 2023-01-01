@@ -3,7 +3,7 @@ library(dplyr)
 library(purrr)
 library(stringr)
 
-french <- readLines("data-raw/french_text.txt")
+french <- readLines("~/six_to/ggkeyboard/data-raw/french_text.txt")
 
 min_max <- function(x){
   (x - min(x))/(max(x)-min(x))
@@ -47,7 +47,7 @@ afnor_azerty2 %>%
 
 #data("afnor_bepo")
 
-german <- readLines("data-raw/german_text.txt")
+german <- readLines("~/six_to/ggkeyboard/data-raw/german_text.txt")
 
 characters_de <-
   german %>%
@@ -85,7 +85,7 @@ afnor_azerty2 %>%
   ggkeyboard2(keyboard = ., layout = "iso")
 
 
-lux <- readLines("data-raw/lb_text.txt")
+lux <- readLines("~/six_to/ggkeyboard/data-raw/lb_text.txt")
 
 characters_lb <-
   lux %>%
@@ -94,12 +94,13 @@ characters_lb <-
   map(~strsplit(., split = "")) %>%
   unlist() %>%
   tolower() %>%
-                                        #str_extract_all(pattern = "[:alpha:]") %>%
   unlist() %>%
   table() %>%  
   as.data.frame() %>%  
   rename(letter = ".",
          total = Freq) %>%  
+  mutate(letter = str_replace_all(letter, "ä", "à")) %>%  
+  mutate(letter = str_replace_all(letter, "ü", "è")) %>%  
   filter(letter != " ") %>%  
   filter(letter != "") %>%  
   mutate(scaled = min_max(total)) %>%  
@@ -121,3 +122,10 @@ afnor_azerty2 %>%
   full_join(characters_lb, by = c("key" = "letter")) %>%
   mutate(fill = coalesce(fill.y, fill.x)) %>% 
   ggkeyboard2(keyboard = ., layout = "iso")
+
+ch_qwertz %>%
+  full_join(characters_lb, by = c("key" = "letter")) %>%
+  mutate(fill = coalesce(fill.y, fill.x)) %>% 
+  ggkeyboard2(keyboard = ., layout = "iso")
+
+  
